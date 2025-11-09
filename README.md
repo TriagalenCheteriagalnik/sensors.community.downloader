@@ -4,10 +4,12 @@ What is this?
 This is a piece of Python software that allows for you to do the following:
 
 1. Download specific sensors.community SDS011 air quality sensors data, for specific dates or time periods of your choosing
-2. Account for humidity via pairing to humidity sensors via an automated Kohler algorithm (configurable)
-3. Account for the instrumental sensor error of the SDS011 particle sensor
-4. Remove single-sensor spikes and statistical outliers (with an acquittal mechanism to prevent correct readings from being deleted)
-5. Generate weekly and monthly reports, with calculated average (mean), median, standard deviation and confidence interval values
+2. Account for humidity via pairing to humidity sensors and an automated Kohler algorithm implementation (configurable)
+3. Remove bad data points (including corrupted data and all data outside the SDS011s operating parameters)
+4. Account for the instrumental sensor error of the SDS011 particle sensor
+5. Remove single-sensor spikes and statistical outliers (with an acquittal mechanism to prevent correct readings from being deleted)
+6. Generate weekly and monthly reports, with calculated average (mean), median, standard deviation and confidence interval values
+7. Keep separate logs of discarded data, in case you want to fact-check the algorithm
 
 It's easy to use and requires only initial user configuration. Everything else is automated. 
 
