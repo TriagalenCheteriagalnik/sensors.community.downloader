@@ -25,12 +25,12 @@ Keep in mind: The academic literature states that the SDS011 sensor is accurate 
 How to use this: 
 1. Make sure Python3 or greater is installed (from https://www.python.org/downloads/) 
 2. Make sure to download all the required modules from the "requirements.txt" file. 
-to do so, open a command window (open the start menu and type in "cmd") and type in "python3 -m pip install" followed by the modules listed in that file.
+To do so, open a command window (open the start menu and type in "cmd") and type in "python3 -m pip install" followed by the modules listed in that file.
 3. Select the air quality sensors you wish to use. This can be done by going to sensors.community and clicking on any sensor while in PM2.5 mode to view their IDs. Write these down. 
 4. (Optional but HIGHTLY recommended) Select the humidity sensors you wish to use. This can be done by going to sensors.community and clicking on any sensor while in humidity mode to view their IDs. Write these down. Ideally, these should be co-located, meaning in the same location as the air quality sensors. 
 5. Right-click on the .py file and edit it with a text editor.
 6. Paste the IDs of all the air quality sensors you wish to use in the relevant part of the configuration.
-7. (Optional but HIGHLY recommended) pair them to humidity sensors in the configuration by pasting the humidity sensor IDs opposite each sensor.
+7. (Optional but HIGHLY recommended) Pair them to humidity sensors in the configuration by pasting the humidity sensor IDs opposite each sensor.
 8. Go through the other parts of the configuration settings. Make sure to set a path to which to save the files!!! I recommend setting a "from" email. You may leave settings you don't understand as-is. The defaults have been optimized.
 9. Save the file and exit the text editor.
 10. Run the script.
@@ -45,7 +45,7 @@ How to interpret the data (keep in mind different files are associated with diff
 - "rows_corrected_k_kohler" shows you how many data rows were corrected using the k-value from the settings due to being associated a relative humidity higher than 70% but lower than 98%.
 - "bad_lines_skipped" represents how many data rows were discarded due to being "bad" - i.e. blank, NaN, or filled with non-numerical values. This is corrupted data.
 - the "stat_ci" rows show only the statistical error, which assumes all particle sensor readings are perfectly accurate once humidity-adjusted. 
-- the adj_ci" rows also add in the instrumental measurement error (±15% и  ±10 μg /m³ for the SDS011 sensor). Use these for your error bars.
+- the adj_ci" rows also add in the instrumental measurement error (±15% and ±10 μg /m³ for the SDS011 sensor; whichever is higher). Use these for your error bars.
 - "n_samples" simply shows how many non-discarded data points are left after processing has been finished for the relevant sensor and time period. These are the data points that were used for the statistical calculations.
 - The timestamps in the individual sensor files show you the exact time when converted to the local sensor timezone. This is noted when compared to UTC. For example "2024-01-01 02:00:00+02:00" means that the reading was done at 02:00:00 local sensor time, and the local sensor time zone is UTC+2. This also should take into account daylight savings.
 - Only particle sensor files have PM2.5 and PM10 data. Only humidity sensor files have temperature and humidity readings. This is normal and is the reason we "pair" them in the configuration. 
@@ -59,7 +59,8 @@ Common issues:
 - It is possible for the timezone to be misinterpreted if your sensor is very close to a timezone boundary.
 - Issues can arise if you pair an air quality sensor with a humidity sensor from another timezone. This is not a good idea, anyway, as the humidity readings are unlikely to be very relevant in this case.
 - The humidity sensors I'm assuming you're using are BME280 sensors. I have not yet tested the software with other types of sensors.
-- Likewise, I'm assuming all air quality readings are coming from SDS011 sensors. Other sensors may yield incorrect data. 
+- Likewise, I'm assuming all air quality readings are coming from SDS011 sensors. Other sensors may yield incorrect data.
+- Other issues may be present, as this software is currently in beta. The author would appreciate any bug reports. 
 
 
   Good luck and have fun! 
