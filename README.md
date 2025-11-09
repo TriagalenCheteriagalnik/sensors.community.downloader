@@ -1,4 +1,4 @@
-# sensors.community.downloader
+# sensors.community.downloader - CURRENTLY IN BETA!!!
 What is this? 
 
 This is a piece of Python software that allows for you to do the following:
