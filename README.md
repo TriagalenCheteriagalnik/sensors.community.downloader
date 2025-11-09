@@ -14,6 +14,7 @@ It's easy to use and requires only initial user configuration. Everything else i
 It also has several other features, such as:
 - Time and system resource estimations
 - Polite download practices to avoid spamming the servers and getting rate limited/banned
+- Automatic timezone recognition based on automatically-detected sensor location
 - Automatic error checking and logging
 - Easy user configuration
 
@@ -35,16 +36,17 @@ to do so, open a command window (open the start menu and type in "cmd") and type
 
 How to interpret the data (keep in mind different files are associated with different data):
 - In summary files, the PM2.5 and PM10 values represent the Kohler-adjusted air pollution values for the relevant time period
-- "Negative rows" means how many data rows were discarded due to having negative data (pollutant values cannot be negative, so any negative values are misreadings)
+- "Negative rows" means how many data rows were discarded due to having a negative value (pollutant values cannot be negative, so any negative values are misreadings)
 - "High rows" shows you how many data rows were discarded due to showing a particulate concentration >999. This is above the specified maximum the SDS011 sensor can read, so any such reading is erroneous.
 - "Spike_rows" shows you how many data rows were deleted due to being above the configurable exclusion modifier (Default: 10x) and not being "acquitted" by another sensor
 - "rows_discarded_fog" show you how many data rows were discarded due to being associated with a humidity reading at or above 98%. At this high level of humidity (fog), the readings are so inaccurate that not even the Kohler formula can save them.
 - "rows_corrected_k_kohler" shows you how many data rows were corrected using the k-value from the settings due to being associated a relative humidity higher than 70% but lower than 98%.
 - "bad_lines_skipped" represents how many data rows were discarded due to being "bad" - i.e. blank, NaN, or filled with non-numerical values. This is corrupted data.
-- the "stat_ci" rows show only the statistical error, which assumes all particle sensor readings are perfectly accurate once humidity-adjusted
-- the adj_ci" rows also add in the instrumental measurement error. Use these for your error bars.
-- "n_samples" simply shows how many non-discarded data points are left after processing has been finished for the relevant sensor and time period.
-- The timestamps in the individual sensor files show you the exact time when converted to the local sensor timezone. This is noted when compared to UTC. For example "2024-01-01 02:00:00+02:00" means that the reading was done at 02:00:00 local sensor time, and the local sensor time zone is UTC+2. This also should take into account daylight savings. 
+- the "stat_ci" rows show only the statistical error, which assumes all particle sensor readings are perfectly accurate once humidity-adjusted. 
+- the adj_ci" rows also add in the instrumental measurement error (±15% и  ±10 μg /m³ for the SDS011 sensor). Use these for your error bars.
+- "n_samples" simply shows how many non-discarded data points are left after processing has been finished for the relevant sensor and time period. These are the data points that were used for the statistical calculations.
+- The timestamps in the individual sensor files show you the exact time when converted to the local sensor timezone. This is noted when compared to UTC. For example "2024-01-01 02:00:00+02:00" means that the reading was done at 02:00:00 local sensor time, and the local sensor time zone is UTC+2. This also should take into account daylight savings.
+- Only particle sensor files have PM2.5 and PM10 data. Only humidity sensor files have temperature and humidity readings. This is normal and is the reason we "pair" them in the configuration. 
 
 Common issues: 
 - The script may launch briefly and crash if you don't have the required modules installed. See - instruction 2.
@@ -54,6 +56,8 @@ Common issues:
 - If the sensors you're using have bad location settings, the timezone will default to EET. This should very rarely happen.
 - It is possible for the timezone to be misinterpreted if your sensor is very close to a timezone boundary.
 - Issues can arise if you pair an air quality sensor with a humidity sensor from another timezone. This is not a good idea, anyway, as the humidity readings are unlikely to be very relevant in this case.
+- The humidity sensors I'm assuming you're using are BME280 sensors. I have not yet tested the software with other types of sensors.
+- Likewise, I'm assuming all air quality readings are coming from SDS011 sensors. Other sensors may yield incorrect data. 
 
 
   Good luck and have fun! 
